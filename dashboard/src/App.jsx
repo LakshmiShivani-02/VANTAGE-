@@ -3,6 +3,40 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { COUNTRIES } from './data/countries';
 
 
+const COUNTRY_BIOS = {
+  USA: {
+    bio: "Known for exporting high-fructose corn syrup and superhero movies.",
+    note: "Agent Note: Subject has an irrational fear of unflavored water."
+  },
+  CHN: {
+    bio: "World leader in grand strategy games and high-speed rail enthusiasts.",
+    note: "Warning: Subject's social credit score is too high to measure."
+  },
+  RUS: {
+    bio: "Specializes in chess grandmasters and tactical winter wear.",
+    note: "Dossier Detail: Subject thinks window safety is merely a suggestion."
+  },
+  BRA: {
+    bio: "Excellent at producing coffee and football players. Strong defense against memes.",
+    note: "Warning: Do not mention the 7-1 score. Ever."
+  },
+  GBR: {
+    bio: "Empire builders turned professional queue-standers.",
+    note: "Intel: Subject's power is derived entirely from lukewarm tea."
+  },
+  IND: {
+    bio: "Master of spice-based diplomacy and zero-indexed logic.",
+    note: "Status: Capable of fixing your server while making the perfect chai."
+  }
+};
+
+const getCountryBio = (code) => {
+  return COUNTRY_BIOS[code] || {
+    bio: "Mysterious entity with unknown strategic intentions.",
+    note: "Agent Note: Subject is a wildcard in the Global Graph."
+  };
+};
+
 const FUNNY_NOTES = [
   "Agent last seen at Taco Bell. Intel compromised?",
   "Intercepted meme shows high levels of irony.",
@@ -118,8 +152,8 @@ const ConspiracyBoard = ({ actor1, actor2, getCountryName, linkageRef }) => {
         {flipped.subjectA ? (
           <div style={{ transform: 'rotateY(180deg)', padding: '1rem', textAlign: 'center', fontFamily: 'Special Elite', fontSize: '0.9rem', color: '#3d2b1f' }}>
             <strong>SECRET BIO:</strong><br /><br />
-            Known for exporting high-fructose corn syrup and superhero movies.<br /><br />
-            <em>Agent Note: Subject has an irrational fear of unflavored water.</em>
+            {getCountryBio(actor1).bio}<br /><br />
+            <em>{getCountryBio(actor1).note}</em>
           </div>
         ) : (
           <>
@@ -203,8 +237,8 @@ const ConspiracyBoard = ({ actor1, actor2, getCountryName, linkageRef }) => {
         {flipped.subjectB ? (
           <div style={{ transform: 'rotateY(180deg)', padding: '1rem', textAlign: 'center', fontFamily: 'Special Elite', fontSize: '0.9rem', color: '#1a1a1a' }}>
             <strong>SECRET DOSSIER:</strong><br /><br />
-            Excellent at producing coffee and football players. Strong defense against memes.<br /><br />
-            <em>Warning: Do not mention the 7-1 score. Ever.</em>
+            {getCountryBio(actor2).bio}<br /><br />
+            <em>{getCountryBio(actor2).note}</em>
           </div>
         ) : (
           <>
