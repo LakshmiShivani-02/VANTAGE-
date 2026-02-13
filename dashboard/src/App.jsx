@@ -3,12 +3,12 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { COUNTRIES } from './data/countries';
 
 
-const getCountryNote = (code, bios, type) => {
-  if (bios && bios[type]) {
-    return bios[type];
+const getCountryNote = (code, bios, type, depth) => {
+  if (bios && bios[type] && bios[type][depth]) {
+    return bios[type][depth];
   }
   return {
-    bio: "Mysterious entity with unknown strategic intentions.",
+    text: "Mysterious entity with unknown strategic intentions.",
     note: "Agent Note: Subject is a wildcard in the Global Graph."
   };
 };
@@ -128,8 +128,8 @@ const ConspiracyBoard = ({ actor1, actor2, getCountryName, linkageRef, bios }) =
         {flipped.subjectA ? (
           <div style={{ transform: 'rotateY(180deg)', padding: '1rem', textAlign: 'center', fontFamily: 'Special Elite', fontSize: '0.9rem', color: '#3d2b1f' }}>
             <strong>SECRET BIO:</strong><br /><br />
-            {getCountryNote(actor1, bios, 'actor1').bio}<br /><br />
-            <em>{getCountryNote(actor1, bios, 'actor1').note}</em>
+            {getCountryNote(actor1, bios, 'actor1', 'profile').text}<br /><br />
+            <em>{getCountryNote(actor1, bios, 'actor1', 'profile').note}</em>
           </div>
         ) : (
           <>
@@ -213,8 +213,8 @@ const ConspiracyBoard = ({ actor1, actor2, getCountryName, linkageRef, bios }) =
         {flipped.subjectB ? (
           <div style={{ transform: 'rotateY(180deg)', padding: '1rem', textAlign: 'center', fontFamily: 'Special Elite', fontSize: '0.9rem', color: '#1a1a1a' }}>
             <strong>SECRET DOSSIER:</strong><br /><br />
-            {getCountryNote(actor2, bios, 'actor2').bio}<br /><br />
-            <em>{getCountryNote(actor2, bios, 'actor2').note}</em>
+            {getCountryNote(actor2, bios, 'actor2', 'dossier').text}<br /><br />
+            <em>{getCountryNote(actor2, bios, 'actor2', 'dossier').note}</em>
           </div>
         ) : (
           <>

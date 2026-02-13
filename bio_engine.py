@@ -38,12 +38,12 @@ class BioEngine:
     ACTORS = ["unidentified", "state-sponsored", "rogue signal", "high-influence"]
 
     def generate(self, country_name, country_code):
-        """Generates a dynamic dossier for any country."""
-        # Using a seed based on the country name to keep it consistent but unique
-        random.seed(country_name)
+        """Generates distinct levels of intelligence for a country."""
         
-        quality_template = random.choice(self.QUALITIES)
-        bio = quality_template.format(
+        # 1. Profile Generator (High-level / Subject A)
+        random.seed(f"{country_name}_profile")
+        profile_template = random.choice(self.QUALITIES)
+        profile_bio = profile_template.format(
             sector=random.choice(self.SECTORS),
             asset=random.choice(self.ASSETS),
             innovation=random.choice(self.INNOVATIONS),
@@ -55,9 +55,31 @@ class BioEngine:
             region=random.choice(self.REGIONS),
             market=random.choice(self.MARKETS)
         )
-        
-        note_template = random.choice(self.AGENT_NOTES)
-        note = note_template.format(
+        profile_note = random.choice(self.AGENT_NOTES).format(
+            security=random.choice(self.SECURITIES),
+            activity=random.choice(self.ACTIVITIES),
+            strategy=random.choice(self.STRATEGIES),
+            status=random.choice(self.STATUSES),
+            actor=random.choice(self.ACTORS)
+        )
+
+        # 2. Dossier Generator (Tactical / Subject B)
+        # Use a different salt for the seed
+        random.seed(f"{country_name}_dossier_secret_x92")
+        dossier_template = random.choice(self.QUALITIES)
+        dossier_bio = dossier_template.format(
+            sector=random.choice(self.SECTORS),
+            asset=random.choice(self.ASSETS),
+            innovation=random.choice(self.INNOVATIONS),
+            hub=random.choice(self.HUBS),
+            diplomacy=random.choice(self.DIPLOMACY),
+            influence=random.choice(self.INFLUENCE),
+            tradition="hidden underground roots",
+            modernity="advanced signal-intelligence",
+            region=random.choice(self.REGIONS),
+            market=random.choice(self.MARKETS)
+        )
+        dossier_note = "CLASSIFIED ADDENDUM: " + random.choice(self.AGENT_NOTES).format(
             security=random.choice(self.SECURITIES),
             activity=random.choice(self.ACTIVITIES),
             strategy=random.choice(self.STRATEGIES),
@@ -65,14 +87,23 @@ class BioEngine:
             actor=random.choice(self.ACTORS)
         )
         
-        # Override for UAE specifically as requested/discussed
+        # UAE Specific Overrides
         if country_code == "ARE":
-            bio = "Specializes in building the future out of sand and silicon. Known for having more cranes per square mile than anywhere else on Earth."
-            note = "Agent Note: Subject has successfully pivoted to a post-oil AI economy ahead of schedule."
+            profile_bio = "Specializes in building the future out of sand and silicon. Known for having more cranes per square mile than anywhere else on Earth."
+            profile_note = "Public Intel: Subject has successfully pivoted to a post-oil AI economy ahead of schedule."
+            
+            dossier_bio = "TACTICAL PROFILE: Operating as the primary node for 'Project Mirage'. Coordinates multi-layered sovereign wealth flows across 4 continents."
+            dossier_note = "FIELD LOG 82-A: Unidentified high-bandwidth uplink detected near the Burj Khalifa research pods. Origin: unknown."
 
         return {
-            "bio": bio,
-            "note": note
+            "profile": {
+                "text": profile_bio,
+                "note": profile_note
+            },
+            "dossier": {
+                "text": dossier_bio,
+                "note": dossier_note
+            }
         }
 
 bio_engine = BioEngine()
