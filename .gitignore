@@ -1,0 +1,60 @@
+# VANTAGE Professional Gitignore
+
+# Large Datasets (GDELT, KG, News)
+**/data/
+**/VANTAGE_data/
+*.csv
+*.tsv
+*.parquet
+*.jsonl
+*.npy
+*.bin
+*.pt
+*.pkl
+
+# Logs and Temporaries
+*.log
+APIs/tmp/
+/tmp/
+/output
+/output_eval
+wandb/
+
+# Python Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Node.js (Dashboard)
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env
+dashboard/*.log
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Agent Artifacts
+.gemini/
+brain/
+**/logs/
+**/task.md
+**/implementation_plan.md
+**/walkthrough.md
+**/task_archive/
+**/implementation_plan_archive/
+**/walkthrough_archive/
+**/metadata.json
