@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 import pandas as pd
 import datetime
+from bio_engine import bio_engine
 
 # Add project root to path
 sys.path.append(os.getcwd())
@@ -89,6 +90,10 @@ async def run_forecast(req: QueryRequest):
         "final_answer": {
             "prediction": final_prediction,
             "confidence": confidence
+        },
+        "bios": {
+            "actor1": bio_engine.generate(req.actor1, req.actor1), # Note: ideally we'd pass name but code works too
+            "actor2": bio_engine.generate(req.actor2, req.actor2)
         }
     }
 
